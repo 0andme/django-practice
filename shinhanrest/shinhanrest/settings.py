@@ -142,3 +142,6 @@ SIMPLE_JWT={
 }
 
 AUTH_USER_MODEL="member.Member"
+AUTHENTICATION_BACKENDS=[
+    'member.auth.MemberAuth'
+]
