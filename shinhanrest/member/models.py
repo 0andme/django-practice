@@ -8,9 +8,12 @@ class Member(AbstractUser):
             ('일반','일반'),
             ('탈퇴','탈퇴'),
             ('휴먼','휴먼'),
-            )
+        )
     )
 
+
+    REQUIRED_FIELDS=['tel']
+    
     class Meta:
       db_table='shinhan_member'
       verbose_name='회원'
