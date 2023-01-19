@@ -111,3 +111,16 @@ class CommentListView(
         return self.list(requset,args,kwargs)
 
 
+class CommentCreateView(
+    mixins.CreateModelMixin,
+    generics.GenericAPIView
+):
+    serializer_class=CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all()
+
+    def post(self, request, *args, **kwargs):
+
+        return self.create(request, args, kwargs)
+    
