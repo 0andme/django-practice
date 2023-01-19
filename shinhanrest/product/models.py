@@ -42,3 +42,6 @@ class Comment(models.Model):
         db_table='shinhan_product_comment'
         verbose_name='상품 댓글'
         verbose_name_plural='상품 댓글'
+
+    def __str__(self):
+        return f"{self.member}  / {self.product} / {self.content}"
