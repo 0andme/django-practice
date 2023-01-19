@@ -12,7 +12,9 @@ class ProductListView(
     serializer_class=ProductSerializer
     
     def get_queryset(self):
-
+        """
+        get with param(name)
+        """
         name=self.request.query_params.get('name')
 
         products=Product.objects.all()
