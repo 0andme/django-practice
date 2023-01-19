@@ -23,7 +23,7 @@ class Product(models.Model):
         verbose_name_plural='상품'
 
     def __str__(self):
-        return f"{self.name}  : {self.price}원 : {self.product_type}"
+        return f"{self.id}/{self.name}  : {self.price}원 : {self.product_type}"
 
 
 class Comment(models.Model):
@@ -44,4 +44,4 @@ class Comment(models.Model):
         verbose_name_plural='상품 댓글'
 
     def __str__(self):
-        return f"{self.member}  / {self.product} / {self.content}"
+        return f"{self.id}/{self.member}  / {self.product} / {self.content}"
