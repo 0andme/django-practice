@@ -69,32 +69,37 @@ class ProductDetailView(
     def put(self,requset,*args,**kwargs):
         return self.partial_update(requset,args,kwargs)
 
-class  CommentListView(
-    mixins.ListModelMixin,
-    generics.GenericAPIView,
-):
-    serializer_class=CommentSerializer
+# 모든 상품의 모든 댓글을 불러오는 기능은 
+# 사실상 말이 안됨
 
-    def get_queryset(self):
-        comments=Comment.objects.all()
-        return comments.order_by('-id')
+# class  CommentListView(
+#     mixins.ListModelMixin,
+#     generics.GenericAPIView,
+# ):
+#     serializer_class=CommentSerializer
+
+#     def get_queryset(self):
+#         comments=Comment.objects.all()
+#         return comments.order_by('-id')
     
-    def get(self,request,*args,**kwargs):
-       return self.list(request,args,kwargs)
+#     def get(self,request,*args,**kwargs):
+#        return self.list(request,args,kwargs)
 
 
-class ProductDetailCommentListView(
+class CommentListView(
     mixins.ListModelMixin,
     generics.GenericAPIView,
 ):
+    """
+    /product/{product_id}/comment
+    """
     serializer_class=CommentSerializer
 
     def get_queryset(self):
-        product_id=self.kwargs.get('pk')
-        print(product_id,type(product_id))
+        product_id=self.kwargs.get('product_id')
 
         if product_id:
-            return Comment.objects.filter(product=product_id).order_by('id')
+            return Comment.objects.filter(product_id=product_id).order_by('-id')
         
         return Comment.objects.none()
 
