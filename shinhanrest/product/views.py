@@ -71,16 +71,33 @@ class ProductDetailView(
 
 class  CommentListView(
     mixins.ListModelMixin,
-    mixins.CreateModelMixin,
     generics.GenericAPIView,
 ):
     serializer_class=CommentSerializer
 
     def get_queryset(self):
-
         comments=Comment.objects.all()
-
-        return comments.order_by('id')
+        return comments.order_by('-id')
     
     def get(self,request,*args,**kwargs):
        return self.list(request,args,kwargs)
+
+
+class ProductDetailCommentListView(
+    mixins.ListModelMixin,
+    generics.GenericAPIView,
+):
+    serializer_class=CommentSerializer
+
+    def get_queryset(self):
+        product_id=self.kwargs.get('pk')
+        print(product_id,type(product_id))
+
+        if product_id:
+            return Comment.objects.filter(product=product_id).order_by('id')
+        
+        return Comment.objects.none()
+
+    def get(self,requset,*args,**kwargs):
+        # 여기서 prodict의 pk가 들어옴
+        return self.list(requset,args,kwargs)

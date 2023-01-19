@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns=[
+    path("/<int:pk>/comment",views.ProductDetailCommentListView.as_view()),
     path("/comment",views.CommentListView.as_view()),
     path("/<int:pk>",views.ProductDetailView.as_view()),
     path("",views.ProductListView.as_view()),
