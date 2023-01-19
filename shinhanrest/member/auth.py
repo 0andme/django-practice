@@ -8,7 +8,7 @@ class MemberAuth:
 
     def authenticate(self,request,username=None,password=None,*args,**kwargs):
         if not username or not password:
-            # 둘 중 하나가 없어도 로그인 처리는 해줄게
+            # 둘 중 하나가 없어도 이미 로그인되어있다면 로그인 처리는 해줄게
             if request.user.is_authenticated:
                 return request.user
             return None
