@@ -5,6 +5,7 @@ from .models import Product,Comment
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    # list_display=('name','tstamp')
     pass
 
 @admin.register(Comment)
