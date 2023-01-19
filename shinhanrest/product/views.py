@@ -12,20 +12,14 @@ class ProductListView(
     serializer_class=ProductSerializer
     
     def get_queryset(self):
-        # 파라미터를 받아서 filter하면 되겠다...
+
         name=self.request.query_params.get('name')
-        price=self.request.query_params.get('price')
-        product_type=self.request.query_params.get('product_type')
-        
+
         products=Product.objects.all()
 
         if name:
-            products=products.filter(name=name)
-        if price:
-            products=products.filter(price=price)
-        if product_type:
-            products=products.filter(product_type=product_type)
-        
+            products=products.filter(name__contains=name)
+       
         return products.order_by('id')
     
     def get(self,request,*args,**kwargs):
