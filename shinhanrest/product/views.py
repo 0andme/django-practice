@@ -1,6 +1,8 @@
 from rest_framework import generics,mixins
 from .models import Product
 from .serializers import ProductSerializer
+from .paginations import ProductLargePagination
+
 # 뷰 = 컨트롤러
 
 class ProductListView(
@@ -10,6 +12,7 @@ class ProductListView(
 ):
 
     serializer_class=ProductSerializer
+    pagination_class=ProductLargePagination
     
     def get_queryset(self):
         """
