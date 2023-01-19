@@ -140,3 +140,5 @@ SIMPLE_JWT={
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
     "AUTH_HEADER_TYPES": ("JWT", ),
 }
+
+AUTH_USER_MODEL="member.Member"
