@@ -1,6 +1,6 @@
 from rest_framework import generics,mixins
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product,Comment
+from .serializers import ProductSerializer,CommentSerializer
 from .paginations import ProductLargePagination
 
 # 뷰 = 컨트롤러
@@ -69,4 +69,18 @@ class ProductDetailView(
     def put(self,requset,*args,**kwargs):
         return self.partial_update(requset,args,kwargs)
 
+class  CommentListView(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    generics.GenericAPIView,
+):
+    serializer_class=CommentSerializer
+
+    def get_queryset(self):
+
+        comments=Comment.objects.all()
+
+        return comments.order_by('id')
     
+    def get(self,request,*args,**kwargs):
+       return self.list(request,args,kwargs)
