@@ -36,8 +36,6 @@ class ProductListView(
         # 직렬화하기
         # 클라이언트 단에 retyrn Response하기
 
-        print(request.user)
-
         # mixins.ListModelMixin의 list를 호출
         return self.list(request,args,kwargs)
     
