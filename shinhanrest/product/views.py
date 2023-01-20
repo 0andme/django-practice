@@ -1,4 +1,4 @@
-from rest_framework import generics,mixins
+from rest_framework import generics,mixins,status
 from .models import Product,Comment,Like
 from .serializers import (
     ProductSerializer,
@@ -145,7 +145,8 @@ class LikeCreateView(
         
         # 이미 해당 상품에 1이 찍혀있으면
         if  Like.objects.filter(member=member,product_id=product_id).exists():
-            return Response()
+            Like.objects.filter(member=member,product_id=product_id).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
         return self.create(request, args, kwargs)
 
