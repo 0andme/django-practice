@@ -1,6 +1,10 @@
 from rest_framework import generics,mixins
 from .models import Product,Comment
-from .serializers import ProductSerializer,CommentSerializer
+from .serializers import (
+    ProductSerializer,
+    CommentSerializer,
+    CommentCreateSerializer
+)
 from .paginations import ProductLargePagination
 
 # 뷰 = 컨트롤러
@@ -115,7 +119,7 @@ class CommentCreateView(
     mixins.CreateModelMixin,
     generics.GenericAPIView
 ):
-    serializer_class=CommentSerializer
+    serializer_class=CommentCreateSerializer
 
     def get_queryset(self):
         return Comment.objects.all()
