@@ -55,3 +55,6 @@ class Like(models.Model):
         db_table='shinhan_product_like'
         verbose_name='상품 좋아요'
         verbose_name_plural='상품 좋아요'
+        
+    def __str__(self):
+        return f"{self.member}//{self.product} "
