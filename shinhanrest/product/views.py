@@ -1,10 +1,12 @@
 from rest_framework import generics,mixins
-from .models import Product,Comment
+from .models import Product,Comment,Like
 from .serializers import (
     ProductSerializer,
     CommentSerializer,
-    CommentCreateSerializer
+    CommentCreateSerializer,
+    LikeCreateSerializer,
 )
+from rest_framework.response import Response
 from .paginations import ProductLargePagination
 
 # 뷰 = 컨트롤러
@@ -126,3 +128,24 @@ class CommentCreateView(
 
         return self.create(request, args, kwargs)
     
+
+class LikeCreateView(
+    mixins.CreateModelMixin,
+    generics.GenericAPIView
+):
+    serializer_class=LikeCreateSerializer
+
+    def get_queryset(self):
+        return Like.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        
+        product_id=request.data.get('product')
+        member=request.user
+        
+        # 이미 해당 상품에 1이 찍혀있으면
+        if  Like.objects.filter(member=member,product_id=product_id).exists():
+            return Response()
+
+        return self.create(request, args, kwargs)
+

@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns=[
+    path("/like",views.LikeCreateView.as_view()),
     path("/<int:product_id>/comment",views.CommentListView.as_view()),
     path("/<int:pk>",views.ProductDetailView.as_view()),
     path("/comment",views.CommentCreateView.as_view()), 
