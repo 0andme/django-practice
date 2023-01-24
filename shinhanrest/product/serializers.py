@@ -3,6 +3,8 @@ from .models import Product,Comment,Like
 
 class ProductSerializer(serializers.ModelSerializer):
     # 필드만 만든 것임 = 필수값이 아니라고 알아서 지정해줌
+    # 데이터를 클라이언트에 전달할 때 사용함
+    # 메서드 필드이기 때문에 아래처럼 get함수를 만들어야 함
     comment_count=serializers.SerializerMethodField()
     like_count=serializers.SerializerMethodField()
 
@@ -16,7 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
         
         # 밑의 코드는 상품별로 매번 동작하게 되는데 이미는 쿼리 셀렉트 문을 n번 하게 되는 것임
         # return Comment.objects.filter(product=obj).count()
-        # 상품 1 : 댓글 n의 관계
+        # 상품 1 : 댓글 n의 관계 일때 외래키를 적었을때 모델명_set이 생긴다
 
         # 모델명(소문자로 변경)_set
         # 외래키로 연결된 모델을 가지고 오는 법 
@@ -87,6 +89,8 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 class LikeCreateSerializer(serializers.ModelSerializer):
 
+    # 로그인 여부 상관없이 그냥 넣어주는 코드이기 때문에
+    # 아래 validate_member가 필요함
     member=serializers.HiddenField(
         default=serializers.CurrentUserDefault(),
         required=False,

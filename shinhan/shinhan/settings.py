@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 장고가 많은 것을 자동으로 해주는데
 # 그 중 하나인 관리자 계정의 암호화되어 있는 비밀번호를 해석하기 위한
 # 비밀키
+# jwt로 만든 토큰을 검증하는 키
 SECRET_KEY = 'django-insecure-+y&y45h##-1f4h35$ja)gby!sa+$wb&b@1j3bjb&&%!#z^^&^9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# false로 바꾸면 에러 메시지가 보이지 않게 됨
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -78,7 +80,9 @@ WSGI_APPLICATION = 'shinhan.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+# 학습용 디비이고 
+# 배포용으로는 좋지 못함
+# 파일 기반의 디비가 가질 수 있는 모든 취약점이 발생할 수 있음ㄴ
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
