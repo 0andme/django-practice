@@ -16,6 +16,11 @@ class MemberRegisterView(APIView):
         tel=request.data.get('tel')
         user_status='일반'
 
+        if Member.objects.filter(username=username).exists():
+            return Response(
+                {'detail':'Already used'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         member= Member(
             username=username,
             password=make_password(password),
