@@ -19,14 +19,14 @@ class ProductListView(
 
     serializer_class=ProductSerializer
     pagination_class=ProductLargePagination
-    permission_classes=[IsAuthenticated]
+    # permission_classes=[IsAuthenticated]
     def get_queryset(self):
         """
         get with param(name)
         """
         name=self.request.query_params.get('name')
 
-        products=Product.objects.all()
+        products=Product.objects.all().prefetch_related('comment_set')
 
         if name:
             products=products.filter(name__contains=name)
@@ -107,7 +107,9 @@ class CommentListView(
             # product_id 대신 product / product__pk / product__id라고 써도 되는 이유
             # __ 언더바 두개의 의미 : product가 가지고 있는 기능적인 것 = product가 가진 필드에 접근할 수 있음
             # 결론 : 아이디를 써도 되고(디비에서 직접 가져옴: 가장 빠르게 접근) 필드명을 써도 됨
-            return Comment.objects.filter(product_id=product_id).order_by('-id')
+            return Comment.objects.filter(product_id=product_id)\
+                .select_related('member','product')\
+                .order_by('-id')
         
         return Comment.objects.none()
 
