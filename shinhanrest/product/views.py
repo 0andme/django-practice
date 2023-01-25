@@ -8,7 +8,7 @@ from .serializers import (
 )
 from rest_framework.response import Response
 from .paginations import ProductLargePagination
-
+from rest_framework.permissions import IsAuthenticated
 # 뷰 = 컨트롤러
 
 class ProductListView(
@@ -19,7 +19,7 @@ class ProductListView(
 
     serializer_class=ProductSerializer
     pagination_class=ProductLargePagination
-    
+    permission_classes=[IsAuthenticated]
     def get_queryset(self):
         """
         get with param(name)
@@ -40,6 +40,7 @@ class ProductListView(
 
         # mixins.ListModelMixin의 list를 호출
         return self.list(request,args,kwargs)
+        
     
     def post(self,request,*args,**kwargs):
         return self.create(request,args,kwargs)
