@@ -5,9 +5,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Member
 
+from rest_framework import generics,mixins,status
+from .serializers import MemberSerializer
 # Create your views here.
 
-class CreateMemberView(APIView):
+class MemberRegisterView(APIView):
     def post(self,request,*args,**kwargs):
         username=request.data.get('username')
         password=request.data.get('password')
@@ -23,3 +25,13 @@ class CreateMemberView(APIView):
         member.save()
 
         return Response(status=status.HTTP_201_CREATED)
+
+
+# class CreateMemberView2(
+#     mixins.CreateModelMixin,
+#     generics.GenericAPIView,
+# ):
+#     serializer_class=MemberSerializer
+
+#     def create(self, request, *args, **kwargs):
+#         return self.create(request, args, kwargs)

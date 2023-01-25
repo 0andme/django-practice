@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.CreateMemberView.as_view())
+    path('',views.MemberRegisterView.as_view())
 ]
