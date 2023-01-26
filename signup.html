@@ -40,6 +40,20 @@
             success: (res) => {
               alert("회원가입 완료");
             },
+            error: (res) => {
+              const ret = res.responseJSON;
+              let errMsg = "";
+
+              if (ret.password) {
+                errMsg += "비밀번호 오류";
+              }
+              if (ret.username) {
+                errMsg += "\n아이디 오류";
+              }
+              if (errMsg) {
+                alert(errMsg);
+              }
+            },
           });
         } else {
           alert("비밀번호 확인 필요");
