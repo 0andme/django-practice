@@ -3,7 +3,7 @@ from .models import Member
 from django.contrib.auth.hashers import make_password
 
 class MemberSerializer(serializers.ModelSerializer):
-    # 회원가입 시 패스워드가 그대로 노출되는 것을 막아보자
+    #회원가입 시 패스워드가 그대로 노출되는 것을 막아보자
     def validate_password(self, value):
         # 유효성 검사가 끝난 값을 반환
         if len(value) < 8 : 
@@ -11,6 +11,13 @@ class MemberSerializer(serializers.ModelSerializer):
         # 암호화 하여 반환하면 된다.
         return make_password(value)
 
+    # def validate(self, attrs):
+    #     if len(attrs['password']) < 8 : 
+    #         raise serializers.ValidationError('Too short password')
+    #     if attrs['password']!=attrs['password_check']:
+    #         raise serializers.ValidationError('password  not same')
+
+    #     return make_password(attrs['password'])
     class Meta:
         model=Member
         fields=('id','username','tel','password')
